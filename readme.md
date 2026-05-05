@@ -113,14 +113,33 @@ Silakan gunakan dan modifikasi sesuai kebutuhan.
 
 ## Deployment
 
-Untuk mendeploy aplikasi ini, gunakan layanan hosting front-end seperti Vercel atau Netlify.
+Aplikasi ini siap dideploy sebagai SPA. Untuk hosting gunakan Vercel atau Netlify, dan database tetap berada di Supabase.
 
-1. Pastikan environment variable Supabase sudah disiapkan.
-2. Hubungkan repository ke layanan hosting pilihan.
-3. Konfigurasi build command:
+### Deploy ke Vercel
+
+1. Pastikan repository sudah di-push ke GitHub.
+2. Masuk ke Vercel dan pilih "New Project".
+3. Hubungkan repository `SPPG-SINDNAG`.
+4. Di halaman project settings, tambahkan environment variables:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+   - `VITE_APP_ID`
+5. Atur build command:
    ```bash
    npm run build
    ```
-4. Konfigurasi output folder sesuai framework; biasanya `dist/`.
+6. Atur output directory:
+   ```bash
+   dist/
+   ```
+7. Deploy.
 
-Jika menggunakan Vercel, cukup pilih repository, atur build command, dan deploy. Pastikan `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, dan `VITE_APP_ID` tersedia di environment.
+### Supabase
+
+1. Buat project baru di Supabase.
+2. Buka SQL editor dan jalankan `supabase-schema.sql`.
+3. (Opsional) Jalankan `supabase-sample-data.sql` untuk data contoh.
+4. Jika Anda ingin akses authenticated, jalankan `supabase-auth-policies.sql`.
+5. Pastikan Realtime aktif untuk tabel `nutrition` dan `quality`.
+
+> Catatan: Supabase database tidak dideploy di Vercel. Vercel hanya meng-host frontend; database dikelola di Supabase.
